@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "153808776290",
+    "firebase_url": "https://rapid-courier-app-b445a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "rapid-courier-app-b445a",
+    "storage_bucket": "rapid-courier-app-b445a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153808776290:android:2c5c341e398553842e753b",
+        "android_client_info": {
+          "package_name": "com.example.example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBFpA12kXyLtyw-YJnq884_rX8Lw4q09c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

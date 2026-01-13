@@ -1,0 +1,103 @@
+package com.example.example;
+
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+public class RiderOrderAdapter extends RecyclerView.Adapter<RiderOrderAdapter.OrderViewHolder> {
+
+    private List<Order> orderList;
+
+    public RiderOrderAdapter(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    @NonNull
+    @Override
+    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rider_order, parent, false);
+        return new OrderViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+        Order order = orderList.get(position);
+
+        holder.orderIdText.setText("Order #" + (order.orderId != null && order.orderId.length() > 6 ? order.orderId.substring(order.orderId.length() - 6) : order.orderId));
+        holder.dateText.setText(order.pickupDate);
+        holder.statusBadge.setText(order.status);
+        holder.pickupText.setText(order.pickupAddress);
+        holder.deliveryText.setText(order.deliveryAddress);
+        holder.weightText.setText(order.packageWeight);
+        holder.descText.setText(order.packageDescription);
+
+        // Styling Badge
+        String status = order.status != null ? order.status : "Pending";
+        switch (status) {
+            case "Pending":
+                holder.statusBadge.setTextColor(Color.parseColor("#E65100")); // Orange Text
+                holder.statusBadge.setBackgroundColor(Color.parseColor("#FFE0B2")); // Orange BG
+                break;
+            case "Picked":
+                holder.statusBadge.setTextColor(Color.parseColor("#2962FF")); // Blue Text
+                holder.statusBadge.setBackgroundColor(Color.parseColor("#E3F2FD")); // Blue BG
+                break;
+            case "In Transit":
+                holder.statusBadge.setTextColor(Color.parseColor("#F57C00")); // Darker Orange
+                holder.statusBadge.setBackgroundColor(Color.parseColor("#FFF3E0"));
+                break;
+            case "Delivered":
+                holder.statusBadge.setTextColor(Color.parseColor("#1B5E20")); // Green Text
+                holder.statusBadge.setBackgroundColor(Color.parseColor("#E8F5E9")); // Green BG
+                break;
+            default:
+                holder.statusBadge.setTextColor(Color.parseColor("#757575"));
+                holder.statusBadge.setBackgroundColor(Color.parseColor("#EEEEEE"));
+                break;
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(holder.itemView.getContext(), RiderOrderDetailsActivity.class);
+            intent.putExtra("ORDER_ID", order.orderId);
+            intent.putExtra("STATUS", order.status);
+            // Use orderDate or pickupDate depending on what is available/preferred
+            // The previous user edit used pickupDate, I'll stick to orderDate if available or pass whatever is displayed
+            // Ideally passing both or sticking to one found in Order object
+            intent.putExtra("DATE", order.pickupDate);
+            intent.putExtra("PICKUP", order.pickupAddress);
+            intent.putExtra("DELIVERY", order.deliveryAddress);
+            intent.putExtra("SENDER", order.senderPhone);
+            intent.putExtra("RECEIVER", order.receiverPhone);
+            intent.putExtra("WEIGHT", order.packageWeight);
+            intent.putExtra("DESCRIPTION", order.packageDescription);
+            holder.itemView.getContext().startActivity(intent);
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return orderList.size();
+    }
+
+    public static class OrderViewHolder extends RecyclerView.ViewHolder {
+        TextView orderIdText, dateText, statusBadge, pickupText, deliveryText, weightText, descText;
+
+        public OrderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            orderIdText = itemView.findViewById(R.id.order_id_text);
+            dateText = itemView.findViewById(R.id.order_date_text);
+            statusBadge = itemView.findViewById(R.id.status_badge);
+            pickupText = itemView.findViewById(R.id.pickup_text);
+            deliveryText = itemView.findViewById(R.id.delivery_text);
+            weightText = itemView.findViewById(R.id.weight_text);
+            descText = itemView.findViewById(R.id.desc_text);
+        }
+    }
+}

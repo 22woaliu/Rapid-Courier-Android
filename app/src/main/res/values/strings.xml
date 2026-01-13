@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Example</string>
+    <string name="courier_management_system">Rapid Courier</string>
+    <string name="app_subtitle">Simple &amp; Fast Delivery</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="admin_description">Access admin dashboard with secure credentials</string>
+    <string name="user_login">User Login</string>
+    <string name="user_description">Sign in as a regular user to track shipments</string>
+</resources>

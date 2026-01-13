@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAFA">
+
+    <!-- Header / Back Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="#1A237E" 
+        android:elevation="2dp"> 
+        <!-- Darker Blue for Admin Header -->
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back to Dashboard"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- Title Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage Orders"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1A1C1E"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View and update all system orders"
+            android:textSize="14sp"
+            android:textColor="#545F71"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- Filters Dropdown Trigger -->
+    <LinearLayout
+         android:id="@+id/filter_dropdown_trigger"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:padding="16dp"
+         android:background="?attr/selectableItemBackground"
+         android:clickable="true"
+         android:focusable="true"> 
+         
+         <TextView
+             android:id="@+id/filter_text"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="All Orders"
+             android:textSize="14sp"
+             android:textStyle="bold"
+             android:textColor="#1F1F1F"/>
+         
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="▼"
+             android:textSize="10sp"
+             android:layout_marginStart="8dp"
+             android:textColor="#757575"/>
+    </LinearLayout>
+
+    <!-- List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/admin_orders_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

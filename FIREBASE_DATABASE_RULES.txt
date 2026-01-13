@@ -1,0 +1,45 @@
+IMPORTANT: Firebase Realtime Database Rules Setup
+
+The user data is not being saved because Firebase Realtime Database has default security rules that DENY all writes.
+
+To fix this, you MUST update the Firebase Realtime Database Rules:
+
+1. Go to Firebase Console → Your Project
+2. Go to Realtime Database
+3. Click on "Rules" tab
+4. Replace the current rules with the following:
+
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid || root.child('users').child(auth.uid).child('userType').val() == 'admin'",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "riders": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "clients": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid || root.child('users').child(auth.uid).child('userType').val() == 'admin'",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    }
+  }
+}
+
+5. Click "Publish" to save the rules
+
+EXPLANATION OF RULES:
+- Users can write to their own user data (users/{uid})
+- Riders data is readable by all authenticated users (for finding riders)
+- Clients data is only readable by themselves or admins
+- Each user can only write to their own data path
+- This ensures security while allowing user registration to work
+
+After setting these rules, the user data will be saved to Realtime Database in the proper structure when signing up.
+
